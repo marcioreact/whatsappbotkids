@@ -45,9 +45,7 @@ cursor.execute('''
 CREATE TABLE IF NOT EXISTS responsaveis(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nome TEXT NOT NULL,
-    cpf TEXT NOT NULL UNIQUE,
-    telefone TEXT NOT NULL,
-    email TEXT
+    telefone TEXT NOT NULL UNIQUE,
 )
 ''')
 
@@ -65,6 +63,19 @@ CREATE TABLE IF NOT EXISTS criancas(
 ''')
 
 #====================================
+# Tabela Horarios
+#====================================
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS horarios (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    funcionario_id INTEGER,
+    data_hora DATETIME NOT NULL,
+    status TEXT DEFAULT 'Disponível',
+    FOREIGN KEY (funcionario_id) REFERENCES funcionarios(id) ON DELETE CASCADE
+)
+''')
+
+#====================================
 # Tabela Agendamentos
 #====================================
 cursor.execute('''
@@ -73,13 +84,12 @@ CREATE TABLE IF NOT EXISTS agendamentos (
     responsavel_id INTEGER NOT NULL,
     crianca_id INTEGER,
     servico_id INTEGER NOT NULL,
-    funcionario_id INTEGER,
-    data_hora DATETIME NOT NULL,
-    status TEXT DEFAULT 'Pendente',
+    horario_id INTEGER NOT NULL, 
+    status TEXT DEFAULT 'Agendado',
     FOREIGN KEY (responsavel_id) REFERENCES responsaveis(id) ON DELETE CASCADE,
     FOREIGN KEY (crianca_id) REFERENCES criancas(id) ON DELETE CASCADE,
     FOREIGN KEY (servico_id) REFERENCES servicos(id) ON DELETE CASCADE,
-    FOREIGN KEY (funcionario_id) REFERENCES funcionarios(id) ON DELETE CASCADE
+    FOREIGN KEY (horario_id) REFERENCES horarios(id) ON DELETE CASCADE
 )
 ''')
 
