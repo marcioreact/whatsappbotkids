@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS servicos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nome_servico TEXT NOT NULL,
     valor REAL NOT NULL,
+    tempo_servico INTEGER DEFAULT 30,
     dias_retorno INTEGER
 )
 ''')
@@ -46,6 +47,8 @@ CREATE TABLE IF NOT EXISTS responsaveis(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nome TEXT NOT NULL,
     telefone TEXT NOT NULL UNIQUE,
+    profissional_preferido INTEGER,
+    FOREIGN KEY (profissional_preferido) REFERENCES funcionarios(id) ON DELETE SET NULL
 )
 ''')
 
@@ -86,6 +89,8 @@ CREATE TABLE IF NOT EXISTS agendamentos (
     servico_id INTEGER NOT NULL,
     horario_id INTEGER NOT NULL, 
     status TEXT DEFAULT 'Agendado',
+    status_confirmacao TEXT DEFAULT 'Pendente',
+    hora_envio_notificacao DATETIME,
     FOREIGN KEY (responsavel_id) REFERENCES responsaveis(id) ON DELETE CASCADE,
     FOREIGN KEY (crianca_id) REFERENCES criancas(id) ON DELETE CASCADE,
     FOREIGN KEY (servico_id) REFERENCES servicos(id) ON DELETE CASCADE,
