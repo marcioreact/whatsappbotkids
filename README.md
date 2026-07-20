@@ -1,6 +1,6 @@
 <div align="center">
 
-# 💇‍♀️✨ Salão de Beleza Infantil Tesourinha da Beleza Kids
+# 💇‍♀️✨ Salão de Beleza Infantil Tesourinha da Beleza Kids Bot
 
 ### Chatbot para atendimento automatizado via WhatsApp de um salão de beleza infantil
 
